@@ -59,8 +59,6 @@ Before you begin, ensure you have met the following requirements:
 ### Usage
 Here's how you can use the SOLL in your C++ code:
 <pre>
-```cpp
-
 #include "soll.h"
 
 int main() {
@@ -79,5 +77,4 @@ int main() {
 
     return 0;
 }
-```
 </pre>
