@@ -143,34 +143,34 @@ template <typename T>
 void SOLL<T>::putInOrder(Node<T>* node)
 {
 	if (!node) return;
-    if (!headAsc) {
-        headAsc = node;
-        headDesc = node;
-        return;
-    }
+    	if (!headAsc) {
+        	headAsc = node;
+        	headDesc = node;
+        	return;
+    	}
 
-    Node<T>* cur = headAsc;
-    while (cur->val < node->val && cur->asc) {
-        cur = cur->asc;
-    }
-    if (cur->val < node->val) {
-        node->asc = cur->asc;
-        cur->asc = node;
-        node->desc = cur;
-        if (!node->asc) {
-            headDesc = node;
-        }
-    } else {
-        node->desc = cur->desc;
-        if (cur->desc) {
-            cur->desc->asc = node;
-        } else {
-            headAsc = node;
-        }
-        node->asc = cur;
-        cur->desc = node;
-    }
-    // Inserts 'node' in ascending order while maintaining the 'headAsc' and 'headDesc' pointers.
+    	Node<T>* cur = headAsc;
+    	while (cur->val < node->val && cur->asc) {
+        	cur = cur->asc;
+    	}
+    	if (cur->val < node->val) {
+        	node->asc = cur->asc;
+        	cur->asc = node;
+        	node->desc = cur;
+        	if (!node->asc) {
+            		headDesc = node;
+        	}
+    	} else {
+        	node->desc = cur->desc;
+        	if (cur->desc) {
+            		cur->desc->asc = node;
+        	} else {
+            		headAsc = node;
+        	}
+        	node->asc = cur;
+        	cur->desc = node;
+    	}
+    	// Inserts 'node' in ascending order while maintaining the 'headAsc' and 'headDesc' pointers.
 }
 
 template <typename T>
@@ -199,9 +199,9 @@ void SOLL<T>::push_front(const T& value)
 	else {
 		tail = newNode;
 	}
-    head = newNode;
-    putInOrder(newNode);
-    // Prepends a new node with the given value to the front of the list.
+    	head = newNode;
+    	putInOrder(newNode);
+    	// Prepends a new node with the given value to the front of the list.
 }
 
 template <typename T>
@@ -251,18 +251,18 @@ void SOLL<T>::insert(int pos, const T& value)
 		push_back(value);
 	}
 	Node<T>* node = new Node<T>(value);
-    int count = 0;
-    Node<T>* cur = head;
-    while (count != pos) {
-        ++count;
-        cur = cur->next;
-    }
-    cur->prev->next = node;
-    node->prev = cur->prev;
-    cur->prev = node;
-    node->next = cur;
-    putInOrder(node);
-    // Inserts a new node with the given value at the specified position.
+    	int count = 0;
+    	Node<T>* cur = head;
+    	while (count != pos) {
+        	++count;
+        	cur = cur->next;
+    	}
+    	cur->prev->next = node;
+    	node->prev = cur->prev;
+    	cur->prev = node;
+    	node->next = cur;
+    	putInOrder(node);
+    	// Inserts a new node with the given value at the specified position.
 }
 
 template <typename T>
@@ -280,8 +280,8 @@ template <typename T>
 void SOLL<T>::printSorted()
 {
 	if (!headAsc) {
-        throw std::out_of_range{"List is empty or headAsc is not initialized."};
-    }
+        	throw std::out_of_range{"List is empty or headAsc is not initialized."};
+    	}
 	Node<T>* curr = headAsc;
 	while (curr) {
 		std::cout << curr->val << " ";
@@ -294,8 +294,8 @@ template <typename T>
 void SOLL<T>::printDescendingOrder()
 {
 	if (!headDesc) {
-        throw std::out_of_range{"List is empty or headDesc is not initialized."};
-    }
+        	throw std::out_of_range{"List is empty or headDesc is not initialized."};
+    	}
 	Node<T>* curr = headDesc;
 	while (curr) {
 		std::cout << curr->val << " ";
@@ -331,37 +331,37 @@ void SOLL<T>::removeSortedNode(Node<T>* node)
 		return;
 	}
 	if (node->desc) {
-        node->desc->asc = node->asc;
-    }
-    if (node->asc) {
-        node->asc->desc = node->desc;
-    }
-    // Removes a node from the sorted order (ascending and descending).
+        	node->desc->asc = node->asc;
+    	}
+    	if (node->asc) {
+        	node->asc->desc = node->desc;
+    	}
+    	// Removes a node from the sorted order (ascending and descending).
 }
 
 template <typename T>
 void SOLL<T>::pop_back() 
 {
-    if (empty()) 
-    {
-        throw std::out_of_range{"List is empty."};
-    } 
-    else 
-    {
-        Node<T>* removed = tail;
-        if (tail == head) 
-        {
-            head = nullptr;
-            tail = nullptr;
-        }
-        else 
-        {
-            tail = tail->prev;
-            tail->next = nullptr;
-        }
-        removeSortedNode(removed);
-    }
-    // Removes the last element from the list.
+    	if (empty()) 
+    	{
+        	throw std::out_of_range{"List is empty."};
+    	} 
+    	else 
+    	{
+        	Node<T>* removed = tail;
+        	if (tail == head) 
+        	{
+            		head = nullptr;
+            		tail = nullptr;
+        	}
+        	else 
+        	{
+            		tail = tail->prev;
+            		tail->next = nullptr;
+        	}
+        	removeSortedNode(removed);
+    	}
+    	// Removes the last element from the list.
 }
 
 template <typename T>
@@ -448,26 +448,26 @@ void SOLL<T>::erase(int pos)
 
 template <typename T>
 void SOLL<T>::resize(int newSize) {
-    if (newSize < 0) {
-        throw std::out_of_range{"New size must be non-negative."};
-    }
-    int currentSize = size();
-    if (newSize == currentSize) {
-        return; // No change needed.
-    } else if (newSize < currentSize) {
-        // Truncate the list.
-        while (currentSize > newSize) {
-            pop_back();
-            currentSize--;
-        }
-    } else {
-        // Extend the list with default-initialized elements.
-        while (currentSize < newSize) {
-            push_back(T()); // Default-initialized element.
-            currentSize++;
-        }
-    }
-    // Resizes the list to the specified new size.
+    	if (newSize < 0) {
+        	throw std::out_of_range{"New size must be non-negative."};
+    	}
+    	int currentSize = size();
+    	if (newSize == currentSize) {
+        	return; // No change needed.
+    	} else if (newSize < currentSize) {
+        	// Truncate the list.
+        	while (currentSize > newSize) {
+            		pop_back();
+            		currentSize--;
+        	}
+    	} else {
+        	// Extend the list with default-initialized elements.
+        	while (currentSize < newSize) {
+            		push_back(T()); // Default-initialized element.
+            		currentSize++;
+        	}
+    	}
+    	// Resizes the list to the specified new size.
 }
 
 template <typename T>
@@ -480,14 +480,14 @@ Node<T>* SOLL<T>::midPoint(Node<T>* list)
 		slow = slow->next;
 		fast = fast->next->next;
 	}
-    return slow;
-    // Finds the middle point of a list (used in merge sort).
+    	return slow;
+    	// Finds the middle point of a list (used in merge sort).
 }
 
 template <typename T>
 Node<T>* SOLL<T>::merge(Node<T>* list1, Node<T>* list2)
 {
-    if (!list1) {
+    	if (!list1) {
 		return list2;
 	}
 	if (!list2) {
@@ -516,26 +516,26 @@ Node<T>* SOLL<T>::merge(Node<T>* list1, Node<T>* list2)
 template <typename T>
 Node<T>* SOLL<T>::mergeSort(Node<T>* list)
 {
-    if (!list || !list->next) 
+    	if (!list || !list->next) 
 	{
 		return list;
 	}
 	Node<T>* mid = midPoint(list);
-    Node<T>* left = list;
-    Node<T>* right = mid;
-    mid->prev->next = nullptr; // Split the list into two separate lists.
-    right->prev = nullptr;
-    left = mergeSort(left);
-    right = mergeSort(right);
-    return merge(left, right);
-    // Performs merge sort on the list.
+    	Node<T>* left = list;
+    	Node<T>* right = mid;
+    	mid->prev->next = nullptr; // Split the list into two separate lists.
+    	right->prev = nullptr;
+    	left = mergeSort(left);
+    	right = mergeSort(right);
+    	return merge(left, right);
+    	// Performs merge sort on the list.
 }
 
 template <typename T>
 void SOLL<T>::sort()
 {
-    head = mergeSort(head);
-    // Sorts the list in ascending order using merge sort.
+    	head = mergeSort(head);
+    	// Sorts the list in ascending order using merge sort.
 }
 
 template <typename T>
@@ -588,34 +588,34 @@ void SOLL<T>::swap(SOLL& other)
 
 template <typename T>
 void SOLL<T>::splice(int pos, SOLL<T>& other) {
-    if (pos < 0 || pos > size()) {
-        throw std::out_of_range{"Position out of range."};
-    }
+    	if (pos < 0 || pos > size()) {
+        	throw std::out_of_range{"Position out of range."};
+    	}
 
-    if (other.empty()) {
-        return; // Nothing to splice.
-    }
+    	if (other.empty()) {
+        	return; // Nothing to splice.
+    	}
 
-    if (pos == 0) {
-        // If pos is 0, prepend the elements from 'other' to the current list.
-        Node<T>* otherTail = other.tail;
-        otherTail->next = head; // Connect the tail of 'other' to the current head.
-        head->prev = otherTail; // Update the previous of the current head.
-        head = other.head; // Update the head to point to the first element of 'other'.
-    } else {
-        Node<T>* cur = head;
-        for (int i = 0; i < pos - 1; ++i) {
-            cur = cur->next;
-        }
-        // Connect the tail of 'other' to the current list.
-        cur->next->prev = other.tail;
-        other.tail->next = cur->next;
+    	if (pos == 0) {
+        	// If pos is 0, prepend the elements from 'other' to the current list.
+        	Node<T>* otherTail = other.tail;
+        	otherTail->next = head; // Connect the tail of 'other' to the current head.
+        	head->prev = otherTail; // Update the previous of the current head.
+        	head = other.head; // Update the head to point to the first element of 'other'.
+    	} else {
+        	Node<T>* cur = head;
+        	for (int i = 0; i < pos - 1; ++i) {
+            		cur = cur->next;
+        	}
+        	// Connect the tail of 'other' to the current list.
+        	cur->next->prev = other.tail;
+        	other.tail->next = cur->next;
 
-        // Connect the head of 'other' to the current list.
-        cur->next = other.head;
-        other.head->prev = cur;
-    }
-    // Splices elements from 'other' into the current list at the specified position.
+        	// Connect the head of 'other' to the current list.
+        	cur->next = other.head;
+        	other.head->prev = cur;
+    	}
+    	// Splices elements from 'other' into the current list at the specified position.
 }
 
 template <typename T>
@@ -632,35 +632,35 @@ template <typename T>
 void SOLL<T>::unique()
 {
 	if (!head)
-    {
-        return; // If the list is empty, nothing to do.
-    }
-    Node<T>* cur = head;
-    while (cur)
-    {
-        Node<T>* prev = cur;
-        Node<T>* nextNode = cur->next;
-        while (nextNode)
-        {
-            if (cur->val == nextNode->val)
-            {
-                Node<T>* duplicate = nextNode;
-                prev->next = nextNode->next;
-                if (nextNode->next) {
-                    nextNode->next->prev = prev; 
-                }
-                removeSortedNode(duplicate);
-                delete duplicate;
-            }
-            else
-            {
-                prev = nextNode;
-            }
-            nextNode = nextNode->next;
-        }
-        cur = cur->next;
-    }
-    // Removes duplicate elements from the list.
+    	{
+        	return; // If the list is empty, nothing to do.
+    	}
+    	Node<T>* cur = head;
+    	while (cur)
+    	{
+        	Node<T>* prev = cur;
+        	Node<T>* nextNode = cur->next;
+        	while (nextNode)
+        	{
+            		if (cur->val == nextNode->val)
+            		{
+                		Node<T>* duplicate = nextNode;
+                		prev->next = nextNode->next;
+                		if (nextNode->next) {
+                    			nextNode->next->prev = prev; 
+                		}
+                		removeSortedNode(duplicate);
+                		delete duplicate;
+            		}
+           		else
+            		{
+                		prev = nextNode;
+            		}
+            		nextNode = nextNode->next;
+        	}
+        	cur = cur->next;
+    	}
+    	// Removes duplicate elements from the list.
 }
 
 template <typename T>
